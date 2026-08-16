@@ -39,7 +39,7 @@ const app = express();
 
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://cactus-backend-39ss.onrender.com",
+  "https://cactus-clothing.vercel.app",
 ];
 
 app.use(helmet());
