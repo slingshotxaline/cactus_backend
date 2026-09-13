@@ -10,5 +10,6 @@ router.get("/", protect, cmsStaff, bannerController.listBanners);
 router.post("/", protect, cmsStaff, bannerController.createBanner);
 router.patch("/:id", protect, cmsStaff, bannerController.updateBanner);
 router.delete("/:id", protect, cmsStaff, bannerController.deleteBanner);
+router.patch("/:id/restore", bannerController.restoreBanner);
 
 export default router;
