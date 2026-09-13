@@ -17,7 +17,8 @@ export const getActiveBanners = asyncHandler(async (req, res) => {
 });
 
 export const listBanners = asyncHandler(async (req, res) => {
-  const banners = await Banner.find().sort({ sortOrder: 1 });
+  const filter = req.query.includeInactive === "true" ? {} : { isActive: true };
+  const banners = await Banner.find(filter).sort({ sortOrder: 1 });
   res.status(200).json({ success: true, data: banners });
 });
 
@@ -34,4 +35,14 @@ export const updateBanner = asyncHandler(async (req, res) => {
 export const deleteBanner = asyncHandler(async (req, res) => {
   await Banner.findByIdAndUpdate(req.params.id, { isActive: false });
   res.status(200).json({ success: true, message: "Banner deactivated." });
+});
+
+// add this alongside deleteBanner
+export const restoreBanner = asyncHandler(async (req, res) => {
+  const banner = await Banner.findByIdAndUpdate(
+    req.params.id,
+    { isActive: true },
+    { new: true }
+  );
+  res.status(200).json({ success: true, data: banner });
 });
